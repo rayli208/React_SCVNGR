@@ -1,9 +1,13 @@
 import React from "react";
+import Header from "../Header";
+import Navigation from "../Navigation";
 
 
-const DesktopView = () => {
+const Dashboard = () => {
   return (
     <div>
+      <Navigation />
+      <Header />
      <div class="row">
           <div class="col-4 bg-dpurp white"><h2>Applied</h2></div>
           <div class="col-4 bg-purp white"><h2>Heard Back</h2></div>
@@ -21,4 +25,4 @@ const DesktopView = () => {
        );
 };
 
-export default DesktopView;
+export default Dashboard;
