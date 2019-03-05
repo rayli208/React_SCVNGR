@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import DesktopView from './components/DesktopView';
+import Card from './components/Card';
 
 
 class App extends Component {
@@ -14,6 +15,8 @@ class App extends Component {
         <Navigation />
         {/* Container which includes Applied, Responded, Offered */}
         <DesktopView />
+
+        <Card />
 
         {/* Footer */}
       </div>
