@@ -8,7 +8,7 @@ const Navigation = () => {
         <div className="col-2">
         </div>
         <div className="col-2">
-        <Link to="/" className={window.location.pathname === "/dashboard" ? "nav-link active" : "nav-link"}>
+        <Link to="/dashboard" className={window.location.pathname === "/dashboard" ? "nav-link active" : "nav-link"}>
             <i className="fas fa-home"></i>
         </Link>
         </div>

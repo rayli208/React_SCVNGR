@@ -23,8 +23,8 @@ class ModalComp extends Component{
         link: '',
         info: ''
       }
-    };
-  }
+    },
+  
 
   handleClose() {
     this.setState({ show: false });
@@ -68,74 +68,91 @@ class ModalComp extends Component{
           <Modal.Header closeButton>
             <Modal.Title>Job Information</Modal.Title>
           </Modal.Header>
-            <Modal.Body>
-              <form>
-                <div class="form-group">
-                  <label for="company">Company</label>
+          <Modal.Body><form>
+                <div className="form-group">
+                  <label htmlFor="company">Company</label>
                   <input
-                    required
+                    
                     type="text"
-                    class="form-control"
+                    className="form-control"
+                    name="company"
+                    onChange={this.handleInputChange}
+                    value={this.state.company}
                     id="company"
                     placeholder="ex. Microsoft"
                     name="company"
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div class="form-group">
-                  <label for="title">Job Title</label>
+                <div className="form-group">
+                  <label htmlFor="title">Job Title</label>
                   <input
                     required
                     type="text"
-                    class="form-control"
+                    className="form-control"
+                    name="title"
+                    onChange={this.handleInputChange}
+                    value={this.state.title}
                     id="title"
                     placeholder="ex. Production Manager"
                     name="job_title"
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div class="form-group">
-                  <label for="phone">Phone Number</label>
+                <div className="form-group">
+                  <label htmlFor="phone">Phone Number</label>
                   <input
                     type="number"
-                    class="form-control"
+                    className="form-control"
+                    name="phone"
+                    onChange={this.handleInputChange}
+                    value={this.state.phone}
                     id="phone"
                     placeholder="ex. 123-456-7890"
                     name="phone_number"
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
+                    name="email"
+                    onChange={this.handleInputChange}
+                    value={this.state.email}
                     id="email"
                     placeholder="ex. johnsmith@gmail.com"
                     name="email"
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div class="form-group">
-                  <label for="location">Location</label>
+                <div className="form-group">
+                  <label htmlFor="location">Location</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
+                    name="location"
+                    onChange={this.handleInputChange}
+                    value={this.state.location}
                     id="location"
                     placeholder="ex. 123 random rd, fakecity, PA"
                     name="location"
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div class="form-group">
-                  <label for="salary">Salary</label>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">$</span>
+                <div className="form-group">
+                  <label htmlFor="salary">Salary</label>
+                  <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text">$</span>
                     </div>
                     <input
                       type="number"
-                      class="form-control"
+                      className="form-control"
+                      name="salary"
+                      onChange={this.handleInputChange}
+                     value={this.state.salary}
                       id="salary"
                       placeholder="ex. 60,000"
                       name="salary"
@@ -143,21 +160,27 @@ class ModalComp extends Component{
                     />
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="link">Link to Website</label>
+                <div className="form-group">
+                  <label htmlFor="link">Link to Website</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
+                    name="link"
+                    onChange={this.handleInputChange}
+                    value={this.state.link}
                     id="link"
                     placeholder="ex. www.google.com/jobs"
                     name="link"
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div class="form-group">
-                  <label for="text-area">Additional Info..</label>
+                <div className="form-group">
+                  <label htmlFor="text-area">Additional Info..</label>
                   <textarea
-                    class="form-control"
+                    className="form-control"
+                    name="info"
+                    onChange={this.handleInputChange}
+                    value={this.state.info}
                     id="text-area"
                     placeholder="ex. Remember to follow up in a week!"
                     name="info"
