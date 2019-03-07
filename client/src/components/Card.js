@@ -1,40 +1,73 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
+import React from "react";
+import Card from "react-bootstrap/Card";
+import Collapse from "react-bootstrap/Collapse";
+import Button from "react-bootstrap/Button";
 
-const card = (props) => {
-    
+class card extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      open: false
+    };
+  }
+
+  render() {
+    const { open } = this.state;
     return (
       <React.Fragment>
-        <Card
-          className="my-3 mx-auto" 
-          style={{ width: '18rem' }} 
+      <Card
+          className="shadow-lg card mx-auto mb-3 mt-2"
+          style={{ width: '18rem' }}
         >
-          <Card.Body>
-            <Card.Title className="border-bottom">{props.company}</Card.Title>
-            <Card.Text>
-              <ul>
-                {props.jobTitle ? <li>Title: {props.jobTitle}</li> : ''}
-                {props.phoneNumber ? <li>Phone number: {props.phoneNumber}</li> : ''}
-                {props.email ? <li>Email: {props.email}</li> : ''}
-                {props.location ? <li>Location: {props.location}</li> : ''}
-                {props.link ? <li>Link: {props.link}</li> : ''}
-                {props.salary ? <li>Salary: {props.salary}</li> : ''}
-                {props.info ? <li>Info: {props.info}</li> : ''}
-                <li>Date created: {props.dateCreated}</li>
-              </ul>
-            </Card.Text>
-            <i 
-              className="far fa-edit"
-              onClick={props.handleJobEdit}
-            />
-            <i 
-              className="far fa-trash-alt"
-              onClick={props.handleJobDelete} 
-            />
-          </Card.Body>
-        </Card>
+        <Button
+          onClick={() => this.setState({ open: !open })}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+          className="btn card-header bg-purple"
+        >
+          <h5 className="card-title">{this.props.company}</h5>
+          <h6 className="card-subtitle mb-2 text-dimmed">{this.props.jobTitle}</h6>
+        </Button>
+        <Collapse in={this.state.open}>
+          <div id="example-collapse-text" className="text-center">
+
+          <h6 className="pb-2 pt-3">Contact Info:</h6>
+            <div className="btn-group pb-2" role="group" aria-label="Basic example">
+            {this.props.phoneNumber ? <a className="btn btn-pink side-borders" href={`tel:${this.props.phoneNumber}`}> <i className="fas fa-phone"></i></a> : ""}
+            {this.props.email ? <a className="btn btn-pink side-borders" href={`mailto:${this.props.email}`}> <i className="fas fa-envelope"></i></a> : ""}
+            {this.props.link ? <a className="btn btn-pink side-borders" target="_blank" href={`https://${this.props.link}`}> <i className="fas fa-link"></i></a> : ""}
+        </div>
+
+
+        <ul className="list-group">
+        {this.props.location ? <li className="list-group-item" key={this.props.location}>
+              <i className="fa fa-map-pin"></i> <span className="location">{this.props.location}</span>
+            </li> : ""}
+
+            {this.props.salary ? <li className="list-group-item" key={this.props.salary}>
+              <i className="fa fa-dollar-sign"></i> <span className="salary">{this.props.salary}</span>
+            </li> : ""}
+
+
+            {this.props.info ? <li className="list-group-item" key={this.props.info}>
+              <i className="fa fa-info-circle"></i><span className="info">{this.props.info}</span>
+            </li> : ""}
+
+       </ul>
+              <i className="far fa-edit mt-2 mb-2" onClick={this.props.handleJobEdit} />
+              <i
+                className="far fa-trash-alt mt-2 mb-2"
+                onClick={this.props.handleJobDelete}
+              />
+          </div>
+        </Collapse>
+      </Card>
+
       </React.Fragment>
     );
-  };
+  }
+}
+
 
 export default card;
