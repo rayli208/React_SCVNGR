@@ -30,21 +30,15 @@ class Dashboard extends Component {
       .catch(err => console.log(err));
   }
 
-  // handleJobEdit= (jobId) => {
-  // jobAPI.updateJob(jobId)
-  //   .then(this.getJobInfo)
-  //   .catch(err => console.log(err));
-  // }
+  handleJobEdit= (jobId) => {
+  jobAPI.updateJob(jobId)
+    .then(this.getJobInfo)
+    .catch(err => console.log(err));
+  }
 
   componentDidMount() {
     this.getJobInfo();
   }
-
-  // componentDidUpdate(prevState) {
-  //   if (prevState.jobInfo.length !== this.state.jobInfo.length) {
-  //     this.getJobInfo()
-  //   }
-  // }
 
   render() {
     console.log(this.getJobInfo)
@@ -71,11 +65,10 @@ class Dashboard extends Component {
                   location={job.location}
                   link={job.link}
                   salary={job.salary}
-                  location={job.location}
                   info={job.info}
                   dateCreated={job.date_created}
                   handleJobDelete={() => this.handleJobDelete(job._id)}
-                  // handleJobEdit={() => this.handleJobEdit(job._id)}
+                  handleJobEdit={() => this.handleJobEdit(job._id)}
                 />
               )
             })}
