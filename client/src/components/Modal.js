@@ -37,8 +37,13 @@ class ModalComp extends Component{
   async handleSaveRequest(event) {
     event.preventDefault();
 
+    this.handleClose();
+    console.log('hi');
     jobAPI.createJob(this.state.userInput)
-      .then(this.props.getJobInfo)
+      .then((res) => {
+        console.log(res.data);
+        return this.props.getJobInfo();
+      })
       .catch(err => console.log(err)); 
   }
 
@@ -54,7 +59,7 @@ class ModalComp extends Component{
 
   render() {
     return (
-      <>
+      <React.Fragment>
         <Button variant="btn btn-outline-pink" onClick={this.handleShow}>
           Enter Job Info
         </Button>
@@ -176,7 +181,7 @@ class ModalComp extends Component{
             </Button>
           </Modal.Footer>
         </Modal>
-      </>
+      </React.Fragment>
     );
   }
 }

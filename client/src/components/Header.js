@@ -3,6 +3,7 @@ import MainPic from "../images/scvngr_main-header-05.png";
 import ModalComp from "./Modal";
 
 const Header = (props) => {
+  console.log(props)
   return (
     <div>
       <div className="jumbotron jumbotron-fluid">
