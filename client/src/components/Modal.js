@@ -34,13 +34,11 @@ class ModalComp extends Component{
     this.setState({ show: true });
   }
 
-  handleSaveRequest(event) {
+  async handleSaveRequest(event) {
     event.preventDefault();
 
-    console.log(this.state.userInput);
-
     jobAPI.createJob(this.state.userInput)
-      .then(response => console.log(response))
+      .then(this.props.getJobInfo)
       .catch(err => console.log(err)); 
   }
 
@@ -69,7 +67,6 @@ class ModalComp extends Component{
                 <div className="form-group">
                   <label htmlFor="company">Company</label>
                   <input
-                    
                     type="text"
                     className="form-control"
                     name="company"
@@ -77,8 +74,6 @@ class ModalComp extends Component{
                     value={this.state.company}
                     id="company"
                     placeholder="ex. Microsoft"
-                    name="company"
-                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="form-group">
@@ -87,13 +82,11 @@ class ModalComp extends Component{
                     required
                     type="text"
                     className="form-control"
-                    name="title"
+                    name="job_title"
                     onChange={this.handleInputChange}
                     value={this.state.title}
                     id="title"
                     placeholder="ex. Production Manager"
-                    name="job_title"
-                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="form-group">
@@ -101,13 +94,11 @@ class ModalComp extends Component{
                   <input
                     type="number"
                     className="form-control"
-                    name="phone"
+                    name="phone_number"
                     onChange={this.handleInputChange}
                     value={this.state.phone}
                     id="phone"
                     placeholder="ex. 123-456-7890"
-                    name="phone_number"
-                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="form-group">
@@ -120,8 +111,6 @@ class ModalComp extends Component{
                     value={this.state.email}
                     id="email"
                     placeholder="ex. johnsmith@gmail.com"
-                    name="email"
-                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="form-group">
@@ -134,8 +123,6 @@ class ModalComp extends Component{
                     value={this.state.location}
                     id="location"
                     placeholder="ex. 123 random rd, fakecity, PA"
-                    name="location"
-                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="form-group">
@@ -149,11 +136,9 @@ class ModalComp extends Component{
                       className="form-control"
                       name="salary"
                       onChange={this.handleInputChange}
-                     value={this.state.salary}
+                      value={this.state.salary}
                       id="salary"
                       placeholder="ex. 60,000"
-                      name="salary"
-                      onChange={this.handleInputChange}
                     />
                   </div>
                 </div>
@@ -167,8 +152,6 @@ class ModalComp extends Component{
                     value={this.state.link}
                     id="link"
                     placeholder="ex. www.google.com/jobs"
-                    name="link"
-                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="form-group">
@@ -180,8 +163,6 @@ class ModalComp extends Component{
                     value={this.state.info}
                     id="text-area"
                     placeholder="ex. Remember to follow up in a week!"
-                    name="info"
-                    onChange={this.handleInputChange}
                   ></textarea>
                 </div>
               </form>

@@ -3,6 +3,7 @@ const db = require('../models');
 module.exports = {
 
   getAllJobs: function(req, res) {
+    console.log('server hit')
     db.JobInfo.find({})
       .then(jobInfoDB => res.json(jobInfoDB))
       .catch(err => console.log(err));
