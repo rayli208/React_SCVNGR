@@ -1,28 +1,62 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import jobAPI from '../../utils/jobAPI'
 
+class card extends Component {
+  state = {
+    jobInfo: []
+  }
+  
+  getJobInfo = () => {
+    jobAPI.findJobs()
+      .then((jobs) => {
+        this.setState(() => ({
+          jobInfo: jobs.data
+        }))
+        console.log(this.state.jobInfo);
+      })
+      .catch(err => console.log(err));
+  }
 
-export class card extends Component {
+  handleJobDelete = () => {
+    jobAPI.deleteJob()
+  }
+
+  componentDidMount() {
+    this.getJobInfo();
+  }
+
   render() {
     
     return (
-      <div>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the bulk of
-              the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>
-      </div>
+      <React.Fragment>
+      {this.state.jobInfo.map(job => {
+        return (
+          <Card style={{ width: '18rem' }} className={job._id}>
+            <Card.Body>
+              <Card.Title>{job.company}</Card.Title>
+              <Card.Text>
+                <ul>
+                  {job.job_title ? <li>Title: {job.job_title}</li> : ''}
+                  {job.phone_number ? <li>Phone number: {job.phone_number}</li> : ''}
+                  {job.email ? <li>Email: {job.email}</li> : ''}
+                  {job.link ? <li>Link: {job.link}</li> : ''}
+                  {job.salary ? <li>Salary: {job.salary}</li> : ''}
+                  {job.info ? <li>Info: {job.info}</li> : ''}
+                  <li>Date created: {job.date_created}</li>
+                </ul>
+              </Card.Text>
+              <i 
+              className="far fa-trash-alt"
+              onClick={this.handleJobDelete} 
+              />
+            </Card.Body>
+          </Card>
+        )
+      })}
+      </React.Fragment>
     );
   }
 }
 
-
-export default card
+export default card;
