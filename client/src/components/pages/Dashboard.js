@@ -64,7 +64,6 @@ class Dashboard extends Component {
               return (
                 <Card
                   key={job._id}
-                  jobId={job._id}
                   company={job.company}
                   jobTitle={job.job_title}
                   phoneNumber={job.phone_number}
