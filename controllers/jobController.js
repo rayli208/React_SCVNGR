@@ -10,14 +10,15 @@ module.exports = {
   },
 
   createJob: function(req, res) {
+    console.log('created job')
     db.JobInfo.create(req.body)
-      .then(JobInfoDB => console.log(JobInfoDB))
+      .then(JobInfoDB => res.json(JobInfoDB))
       .catch(err => console.log(err));
   },
 
   deleteJob: function(req, res) {
     db.JobInfo.deleteOne({_id: req.params.id})
-      .then(JobInfoDB => console.log(JobInfoDB))
+      .then(JobInfoDB => res.json(JobInfoDB))
       .catch(err => console.log(err));
   },
 
@@ -31,8 +32,6 @@ module.exports = {
     if(req.body.info) {
       updatedJobInfo.info = req.body.info
     }
-
-    
 
     db.JobInfo.findOneAndUpdate({_id: req.params.id}, {$set: updatedJobInfo}, {new:true})
       .then(JobInfoDB => console.log(JobInfoDB))

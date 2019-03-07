@@ -11,10 +11,11 @@ class Dashboard extends Component {
     jobInfo: []
   }
 
-  getJobInfo() {
+  getJobInfo = () => {
     console.log(this.state.jobInfo)
     jobAPI.findJobs()
       .then((res) => {
+        
         this.setState(() => ({
           jobInfo: res.data
         }))
@@ -39,11 +40,18 @@ class Dashboard extends Component {
     this.getJobInfo();
   }
 
+  // componentDidUpdate(prevState) {
+  //   if (prevState.jobInfo.length !== this.state.jobInfo.length) {
+  //     this.getJobInfo()
+  //   }
+  // }
+
   render() {
+    console.log(this.getJobInfo)
     return (
       <div>
         <Navigation />
-        <Header getJobInfo={this.getJobInfo}/>
+        <Header getJobInfo={this.getJobInfo} />
         <div className="row">
           <div className="col-4 bg-dpurp white"><h2>Applied</h2></div>
           <div className="col-4 bg-purp white"><h2>Heard Back</h2></div>
@@ -55,13 +63,16 @@ class Dashboard extends Component {
           {this.state.jobInfo.map(job => {
               return (
                 <Card
+                  key={job._id}
                   jobId={job._id}
                   company={job.company}
                   jobTitle={job.job_title}
                   phoneNumber={job.phone_number}
                   email={job.email}
+                  location={job.location}
                   link={job.link}
                   salary={job.salary}
+                  location={job.location}
                   info={job.info}
                   dateCreated={job.date_created}
                   handleJobDelete={() => this.handleJobDelete(job._id)}

@@ -2,11 +2,7 @@ import axios from 'axios'
 
 export default {
   createJob: function(userJobInput) {
-    return axios({
-      method: 'POST',
-      url: '/api/jobinfo/',
-      data: userJobInput
-    });
+    return axios.post('/api/jobinfo', userJobInput)
   },
   findJobs: function() {
     return axios.get('/api/jobinfo/findjobs')
