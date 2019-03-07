@@ -1,10 +1,10 @@
 import React from 'react';
 import HomePic from "../../images/scvngr_home-screen-06.png";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal'
+import ModalSignUp from "../SignUpModal";
+import ModalLogin from "../LoginModal";
 
 
-const Login = () => {
+const Login = (props) => {
   return (
     <div>
       <div className="background-gradient">
@@ -15,14 +15,14 @@ const Login = () => {
           <div className="row mt-3">
             <div className="col-12 col-md-6">
             <div>
-              <Button variant="btn btn-outline-light btn-block mt-3" size="lg" block>Sign Up</Button>
-            </div>;
+              <ModalSignUp getJobInfo={props.getJobInfo} />
+            </div>
             </div>
 
             <div className="col-12 col-md-6">
             <div>
-              <Button variant="btn btn-outline-light btn-block mt-3" size="lg" block>Login</Button>
-            </div>;
+              <ModalLogin getJobInfo={props.getJobInfo} />
+            </div>
             </div>
           </div>
         </div>
