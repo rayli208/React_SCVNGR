@@ -30,6 +30,11 @@ const JobInfoSchema = new Schema({
     type: Number,
     required: false
   },
+  location: {
+    type: String,
+    required: false,
+    default: ""
+  },
   info: {
     type: String,
     required: false,

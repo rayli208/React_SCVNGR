@@ -12,15 +12,19 @@ const Login = () => {
         <div className="image-box" id="mainSection">
           <img src={HomePic} className="home-image" alt="SCVNGR Home Logo" />
 
-          <div>
-            <Button variant="btn btn-outline-light btn-block mt-3" size="lg" block>
-              Login
-            </Button>
+          <div className="row mt-3">
+            <div className="col-12 col-md-6">
+            <div>
+              <Button variant="btn btn-outline-light btn-block mt-3" size="lg" block>Sign Up</Button>
+            </div>;
+            </div>
 
-            <Button variant="btn btn-outline-light btn-block" size="lg" block>
-              Sign Up
-            </Button>
-          </div>;
+            <div className="col-12 col-md-6">
+            <div>
+              <Button variant="btn btn-outline-light btn-block mt-3" size="lg" block>Login</Button>
+            </div>;
+            </div>
+          </div>
         </div>
 
         <a href="#section2">

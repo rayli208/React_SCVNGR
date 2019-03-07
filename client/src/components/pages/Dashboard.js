@@ -55,6 +55,7 @@ class Dashboard extends Component {
           {this.state.jobInfo.map(job => {
               return (
                 <Card
+                  key={job._id}
                   jobId={job._id}
                   company={job.company}
                   jobTitle={job.job_title}
@@ -62,6 +63,7 @@ class Dashboard extends Component {
                   email={job.email}
                   link={job.link}
                   salary={job.salary}
+                  location={job.location}
                   info={job.info}
                   dateCreated={job.date_created}
                   handleJobDelete={() => this.handleJobDelete(job._id)}
