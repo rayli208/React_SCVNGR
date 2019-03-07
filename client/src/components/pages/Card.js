@@ -18,8 +18,10 @@ class card extends Component {
       .catch(err => console.log(err));
   }
 
-  handleJobDelete = () => {
-    jobAPI.deleteJob()
+  handleJobDelete = jobId => {
+    jobAPI.deleteJob(jobId)
+      .then(this.getJobInfo)
+      .catch(err => console.log(err));
   }
 
   componentDidMount() {
@@ -32,7 +34,7 @@ class card extends Component {
       <React.Fragment>
       {this.state.jobInfo.map(job => {
         return (
-          <Card style={{ width: '18rem' }} className={job._id}>
+          <Card style={{ width: '18rem' }} key={job._id}>
             <Card.Body>
               <Card.Title>{job.company}</Card.Title>
               <Card.Text>
@@ -48,7 +50,7 @@ class card extends Component {
               </Card.Text>
               <i 
               className="far fa-trash-alt"
-              onClick={this.handleJobDelete} 
+              onClick={() => this.handleJobDelete(job._id)} 
               />
             </Card.Body>
           </Card>
