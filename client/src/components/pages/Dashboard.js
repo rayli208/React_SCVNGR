@@ -45,8 +45,14 @@ class Dashboard extends Component {
         <Navigation />
         <Header getJobInfo={this.getJobInfo}/>
         <div className="row">
-          <div className="col-4 bg-dpurp white"><h2>Applied</h2>
-            {this.state.jobInfo.map(job => {
+          <div className="col-4 bg-dpurp white"><h2>Applied</h2></div>
+          <div className="col-4 bg-purp white"><h2>Heard Back</h2></div>
+          <div className="col-4 bg-lpurp white"><h2>Offer</h2></div>
+        </div>
+
+        <div className="row">
+          <div id="applied" className="col-4 bg-dpurp jobList">
+          {this.state.jobInfo.map(job => {
               return (
                 <Card
                   jobId={job._id}
@@ -63,14 +69,7 @@ class Dashboard extends Component {
                 />
               )
             })}
-            
           </div>
-          <div className="col-4 bg-purp white"><h2>Heard Back</h2></div>
-          <div className="col-4 bg-lpurp white"><h2>Offer</h2></div>
-        </div>
-
-        <div className="row">
-          <div id="applied" className="col-4 bg-dpurp jobList"></div>
           <div id="heardBack" className="col-4 bg-purp jobList"></div>
           <div id="offer" className="col-4 bg-lpurp jobList"></div>
         </div>
