@@ -8,7 +8,6 @@ const card = (props) => {
         <Card
           className="my-3 mx-auto" 
           style={{ width: '18rem' }} 
-          key={props.jobId}
         >
           <Card.Body>
             <Card.Title className="border-bottom">{props.company}</Card.Title>
@@ -17,6 +16,7 @@ const card = (props) => {
                 {props.jobTitle ? <li>Title: {props.jobTitle}</li> : ''}
                 {props.phoneNumber ? <li>Phone number: {props.phoneNumber}</li> : ''}
                 {props.email ? <li>Email: {props.email}</li> : ''}
+                {props.location ? <li>Location: {props.location}</li> : ''}
                 {props.link ? <li>Link: {props.link}</li> : ''}
                 {props.salary ? <li>Salary: {props.salary}</li> : ''}
                 {props.info ? <li>Info: {props.info}</li> : ''}
