@@ -1,22 +1,24 @@
 import React, {Component} from "react";
 import Header from "../Header";
 import Navigation from "../Navigation";
-import Card from "../pages/Card"
-import jobAPI from '../../utils/jobAPI'
+import Card from "../Card";
+import jobAPI from '../../utils/jobAPI';
 
 
 class Dashboard extends Component {
   state = {
+    show: false,
     jobInfo: []
   }
 
-  getJobInfo = () => {
+  getJobInfo() {
+    console.log(this.state.jobInfo)
     jobAPI.findJobs()
       .then((res) => {
         this.setState(() => ({
           jobInfo: res.data
         }))
-        console.log(this.state.jobInfo);
+        console.log((this.state.jobInfo));
       })
       .catch(err => console.log(err));
   }
@@ -26,6 +28,13 @@ class Dashboard extends Component {
       .then(this.getJobInfo())
       .catch(err => console.log(err));
   }
+
+  // handleJobEdit= (jobId) => {
+  // jobAPI.updateJob(jobId)
+  //   .then(this.getJobInfo)
+  //   .catch(err => console.log(err));
+  // }
+
   componentDidMount() {
     this.getJobInfo();
   }
@@ -34,7 +43,7 @@ class Dashboard extends Component {
     return (
       <div>
         <Navigation />
-        <Header />
+        <Header getJobInfo={this.getJobInfo}/>
         <div className="row">
           <div className="col-4 bg-dpurp white"><h2>Applied</h2>
             {this.state.jobInfo.map(job => {
@@ -50,6 +59,7 @@ class Dashboard extends Component {
                   info={job.info}
                   dateCreated={job.date_created}
                   handleJobDelete={() => this.handleJobDelete(job._id)}
+                  // handleJobEdit={() => this.handleJobEdit(job._id)}
                 />
               )
             })}
