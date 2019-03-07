@@ -3,6 +3,8 @@ import Header from "../Header";
 import Navigation from "../Navigation";
 import Card from "../Card";
 import jobAPI from '../../utils/jobAPI';
+var dragula = require('react-dragula');
+
 
 
 class Dashboard extends Component {
@@ -38,6 +40,11 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.getJobInfo();
+    var drake = dragula([document.querySelector('#applied'), document.querySelector('#heardBack'), document.querySelector('#offer')]);
+    drake.on('drop', function(el, target, source, sibling) {
+      console.log("From " + source.id + " to " + target.id);
+      //console.log(el, " dropped into ", target, " before ", sibling, " came from ", source);
+    });
   }
 
   render() {
@@ -71,13 +78,14 @@ class Dashboard extends Component {
                   handleJobEdit={() => this.handleJobEdit(job._id)}
                 />
               )
-            })}
+            }
+            )}
           </div>
           <div id="heardBack" className="col-4 bg-purp jobList"></div>
           <div id="offer" className="col-4 bg-lpurp jobList"></div>
         </div>
       </div>
-    );
+    )
   }
 };
 

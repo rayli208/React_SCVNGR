@@ -249,6 +249,45 @@ button h5 {
 
 .row-black{
   background-color: black;
+<<<<<<< HEAD
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+.gu-mirror {
+  cursor:move; cursor:-webkit-grabbing; cursor:-moz-grabbing; cursor:grabbing;
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 1;
+  -webkit-transform: rotate(5deg);
+transform: rotate(5deg);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+||||||| merged common ancestors
+}
+=======
 }
 
 
@@ -310,3 +349,4 @@ button h5 {
     width: 100%;
     background-color: yellow;
   }
+>>>>>>> 893b107aa25cffc8f9db46514c813f8536793dbd
