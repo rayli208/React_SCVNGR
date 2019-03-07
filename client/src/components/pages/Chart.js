@@ -1,14 +1,43 @@
 import React from "react";
 import Navigation from "../Navigation";
+var Chart = require("chart.js");
 
+class Layout extends React.Component {
 
-const Chart = () => {
-  return (
-    <div>
-      <Navigation />
-      <h1>THIS IS THE CHART PAGE</h1>
-    </div>
-  );
-};
+  componentDidMount() {
+    const node = this.node;
 
-export default Chart;
+    new Chart(node, {
+      type: "bar",
+      data: {
+        labels: ["Red", "Blue", "Yellow"],
+        datasets: [
+          {
+            label: "# of Likes",
+            data: [12, 19, 3],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)"
+            ]
+          }
+        ]
+      }
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Navigation/>
+        <canvas
+          style={{ width: 800, height: 300 }}
+          ref={node => (this.node = node)}
+        />
+      </div>
+    );
+  }
+}
+
+export default Layout;
+
