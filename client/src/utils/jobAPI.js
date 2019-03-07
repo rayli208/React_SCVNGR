@@ -6,7 +6,7 @@ export default {
       method: 'POST',
       url: '/api/jobinfo/',
       data: userJobInput
-    })
+    });
   },
   findJobs: function() {
     return axios.get('/api/jobinfo/findjobs')

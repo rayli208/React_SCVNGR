@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Header";
 import Navigation from "../Navigation";
+import Card from "../pages/Card"
 
 
 const Dashboard = () => {
@@ -9,7 +10,9 @@ const Dashboard = () => {
       <Navigation />
       <Header />
      <div className="row">
-          <div className="col-4 bg-dpurp white"><h2>Applied</h2></div>
+          <div className="col-4 bg-dpurp white"><h2>Applied</h2>
+            <Card />
+          </div>
           <div className="col-4 bg-purp white"><h2>Heard Back</h2></div>
           <div className="col-4 bg-lpurp white"><h2>Offer</h2></div>
         </div>

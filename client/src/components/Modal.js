@@ -23,8 +23,8 @@ class ModalComp extends Component{
         link: '',
         info: ''
       }
-    },
-  
+    };
+  }
 
   handleClose() {
     this.setState({ show: false });
@@ -37,13 +37,11 @@ class ModalComp extends Component{
   handleSaveRequest(event) {
     event.preventDefault();
 
-
     console.log(this.state.userInput);
 
     jobAPI.createJob(this.state.userInput)
       .then(response => console.log(response))
-      .catch(err => console.log(err));
-    
+      .catch(err => console.log(err)); 
   }
 
   handleInputChange = event => {
@@ -53,9 +51,8 @@ class ModalComp extends Component{
             ...this.state.userInput,
             [name]: value
       }
-  })
+    })
   };
-
 
   render() {
     return (
@@ -202,4 +199,5 @@ class ModalComp extends Component{
     );
   }
 }
-export default ModalComp
+
+export default ModalComp;
