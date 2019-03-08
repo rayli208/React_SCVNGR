@@ -1,8 +1,50 @@
 import React, { Component } from 'react';
 import {Bar} from 'react-chartjs-2';
 import Navigation from '../Navigation'
+import Axios from 'axios';
 
-export default class BarChartComponent extends Component{
+class BarChartComponent extends Component
+{
+   constructor(props) {
+      super(props);
+      this.state ={
+        data: {data: null}
+       }
+  }
+
+
+  componentDidMount() {
+    Axios.get('http://localhost:3000/api/jobinfo/findjobs')
+    .then(res => {
+      const jobs = res.data;
+      console.log(jobs);
+      let jobtitle = [];
+      let job = [];
+      jobs.forEach(element => {
+        jobtitle.push(element.company);
+        job.push(element.date_created)
+      });
+      this.setState({
+        Data: {
+          labels: jobtitle,
+          datasets:[{
+            label: 'Jobs applied to',
+            data: jobs,
+            backgroundColor: [
+              'rgba(255,105,145,0.6)',
+                       'rgba(155,100,210,0.6)',
+                       'rgba(90,178,255,0.6)',
+                       'rgba(240,134,67,0.6)',
+                       'rgba(120,120,120,0.6)',
+                       'rgba(250,55,197,0.6)'
+            ]
+          }]
+        }
+      });
+
+    })
+  }
+
 
    render()
    {
@@ -13,53 +55,9 @@ export default class BarChartComponent extends Component{
          </div>
       )
    }
+}
 
-  }
-
-
-
+export default BarChartComponent
 
 
-  // import React from "react";
-  // import Navigation from "../Navigation";
-  // var Chart = require("chart.js");
-
-  // class Layout extends React.Component {
-
-  //   componentDidMount() {
-  //     const node = this.node;
-
-  //     new Chart(node, {
-  //       type: "bar",
-  //       data: {
-  //         labels: ["Red", "Blue", "Yellow"],
-  //         datasets: [
-  //           {
-  //             label: "# of Likes",
-  //             data: [12, 19, 3],
-  //             backgroundColor: [
-  //               "rgba(255, 99, 132, 0.2)",
-  //               "rgba(54, 162, 235, 0.2)",
-  //               "rgba(255, 206, 86, 0.2)"
-  //             ]
-  //           }
-  //         ]
-  //       }
-  //     });
-  //   }
-
-  //   render() {
-  //     return (
-  //       <div>
-  //         <Navigation/>
-  //         <canvas
-  //           style={{ width: 800, height: 300 }}
-  //           ref={node => (this.node = node)}
-  //         />
-  //       </div>
-  //     );
-  //   }
-  // }
-
-  // export default Layout;
 
