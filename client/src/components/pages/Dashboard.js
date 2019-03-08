@@ -21,7 +21,8 @@ class Dashboard extends Component {
       location: '',
       link: '',
       salary: '',
-      info: ''
+      info: '',
+      positionId: 1
     }
   };
 
@@ -52,7 +53,7 @@ class Dashboard extends Component {
       .catch(err => console.log(err));
   };
 
-  handleUpdateRequest = jobId => {
+  handleUpdateRequest = () => {
     this.handleClose()
     jobAPI.updateJob(this.state.updatedJobInfo._id, this.state.updatedJobInfo)
     .then(this.getJobInfo())
@@ -68,13 +69,22 @@ class Dashboard extends Component {
       }
     });
   };
+  
+  handlePositionUpdate = (jobId, position) => {
+    const newJobInfo = this.state.jobInfo.find(job => job._id === jobId)
+    newJobInfo.positionId = position
+    this.setState({ updatedJobInfo: newJobInfo })
+    this.handleUpdateRequest()
+  }
 
   componentDidMount() {
     this.getJobInfo();
     var drake = dragula([document.querySelector('#applied'), document.querySelector('#heardBack'), document.querySelector('#offer')]);
     drake.on('drop', function(el, target, source, sibling) {
-      console.log("From " + source.id + " to " + target.id);
-      //console.log(el, " dropped into ", target, " before ", sibling, " came from ", source);
+      console.dir(el.dataset.position)
+      console.log(el.dataset.id)
+      console.dir(target.dataset.id)
+      // this.handlePositionUpdate(el.dataset.id, target.dataset.id)
     });
   };
 
@@ -105,10 +115,12 @@ class Dashboard extends Component {
         </div>
 
         <div className="row">
-          <div id="applied" className="col-4 bg-dpurp jobList">
-          {this.state.jobInfo.map(job => {
+          <div id="applied" className="col-4 bg-dpurp jobList" data-id="1">
+          {this.state.jobInfo.filter(job => (job.positionId === 1)).map(job => {
               return (
                 <Card
+                  id={job._id}
+                  position={job.positionId}
                   key={job._id}
                   company={job.company}
                   jobTitle={job.job_title}
@@ -121,13 +133,60 @@ class Dashboard extends Component {
                   dateCreated={job.date_created}
                   handleJobDelete={() => this.handleJobDelete(job._id)}
                   handleShow={() => this.handleShow(job._id)}
+                  // positionUpdate={() => this.handlePositionUpdate(job._id, job.positionId)}
                 />
               )
             }
             )}
           </div>
-          <div id="heardBack" className="col-4 bg-purp jobList"></div>
-          <div id="offer" className="col-4 bg-lpurp jobList"></div>
+          <div id="heardBack" className="col-4 bg-purp jobList" data-id="2">
+          {this.state.jobInfo.filter(job => (job.positionId === 2)).map(job => {
+              return (
+                <Card
+                  id={job._id}
+                  position={job.positionId}
+                  key={job._id}
+                  company={job.company}
+                  jobTitle={job.job_title}
+                  phoneNumber={job.phone_number}
+                  email={job.email}
+                  location={job.location}
+                  link={job.link}
+                  salary={job.salary}
+                  info={job.info}
+                  dateCreated={job.date_created}
+                  handleJobDelete={() => this.handleJobDelete(job._id)}
+                  handleShow={() => this.handleShow(job._id)}
+                  // positionUpdate={() => this.handlePositionUpdate(job._id, job.positionId)}
+                />
+              )
+            }
+            )}
+          </div>
+          <div id="offer" className="col-4 bg-lpurp jobList" data-id="3">
+          {this.state.jobInfo.filter(job => (job.positionId === 3)).map(job => {
+              return (
+                <Card
+                  id={job._id}
+                  position={job.positionId}
+                  key={job._id}
+                  company={job.company}
+                  jobTitle={job.job_title}
+                  phoneNumber={job.phone_number}
+                  email={job.email}
+                  location={job.location}
+                  link={job.link}
+                  salary={job.salary}
+                  info={job.info}
+                  dateCreated={job.date_created}
+                  handleJobDelete={() => this.handleJobDelete(job._id)}
+                  handleShow={() => this.handleShow(job._id)}
+                  // positionUpdate={() => this.handlePositionUpdate(job._id, job.positionId)}
+                />
+              )
+            }
+            )}
+          </div>
         </div>
       </div>
     );
