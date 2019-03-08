@@ -14,11 +14,16 @@ class card extends React.Component {
 
   render() {
     const { open } = this.state;
+    console.log(typeof this.props.handleDrag);
+    console.log(this.props);
     return (
       <React.Fragment>
-      <Card
+        <Card
           className="shadow-lg card mx-auto mb-3 mt-2"
+          data-id={this.props.id}
+          data-position={this.props.position}
           style={{ width: '18rem' }}
+          onChange={this.props.positionUpdate}
         >
         <Button
           onClick={() => this.setState({ open: !open })}
