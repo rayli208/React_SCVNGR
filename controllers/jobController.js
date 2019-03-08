@@ -25,12 +25,36 @@ module.exports = {
   updateJob: function(req, res) {
     const updatedJobInfo = {};
 
-    if(req.body.positionId) {
-        updatedJobInfo.positionId = req.body.positionId
-    }
+    // job_title
+    // phone_number
+    // email
+    // location
+    // salary
+    // link
 
+    if(req.body.job_title) {
+      updatedJobInfo.job_title = req.body.job_title
+    }
+    if(req.body.phone_number) {
+      updatedJobInfo.phone_number = req.body.phone_number
+    }
+    if(req.body.email) {
+      updatedJobInfo.email = req.body.email
+    }
+    if(req.body.location) {
+      updatedJobInfo.location = req.body.location
+    }
+    if(req.body.salary) {
+      updatedJobInfo.salary = req.body.salary
+    }
+    if(req.body.link) {
+      updatedJobInfo.link = req.body.link
+    }
     if(req.body.info) {
       updatedJobInfo.info = req.body.info
+    }
+    if(req.body.positionId) {
+        updatedJobInfo.positionId = req.body.positionId
     }
 
     db.JobInfo.findOneAndUpdate({_id: req.params.id}, {$set: updatedJobInfo}, {new:true})

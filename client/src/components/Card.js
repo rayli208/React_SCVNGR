@@ -34,9 +34,9 @@ class card extends React.Component {
 
           <h6 className="pb-2 pt-3">Contact Info:</h6>
             <div className="btn-group pb-2" role="group" aria-label="Basic example">
-            {this.props.phoneNumber ? <a className="btn btn-pink side-borders" href={`tel:${this.props.phoneNumber}`}> <i className="fas fa-phone"></i></a> : ""}
-            {this.props.email ? <a className="btn btn-pink side-borders" href={`mailto:${this.props.email}`}> <i className="fas fa-envelope"></i></a> : ""}
-            {this.props.link ? <a className="btn btn-pink side-borders" target="_blank" href={`https://${this.props.link}`}> <i className="fas fa-link"></i></a> : ""}
+            {this.props.phoneNumber ? <a className="btn btn-pink side-borders" href={`tel:${this.props.phoneNumber}`} rel="noopener noreferrer"> <i className="fas fa-phone"></i></a> : ""}
+            {this.props.email ? <a className="btn btn-pink side-borders" href={`mailto:${this.props.email}`} rel="noopener noreferrer"> <i className="fas fa-envelope"></i></a> : ""}
+            {this.props.link ? <a className="btn btn-pink side-borders" target="_blank" href={`https://${this.props.link}`} rel="noopener noreferrer"> <i className="fas fa-link"></i></a> : ""}
         </div>
 
 
@@ -55,7 +55,7 @@ class card extends React.Component {
             </li> : ""}
 
        </ul>
-              <i className="far fa-edit mt-2 mb-2" onClick={this.props.handleJobEdit} />
+              <i className="far fa-edit mt-2 mb-2" onClick={this.props.handleShow} />
               <i
                 className="far fa-trash-alt mt-2 mb-2"
                 onClick={this.props.handleJobDelete}

@@ -13,16 +13,6 @@ class ModalSignUp extends Component {
 
     this.state = {
       show: false,
-      userInput: {
-        company: '',
-        job_title: '',
-        phone_number: '',
-        email: '',
-        location: '',
-        salary: '',
-        link: '',
-        info: ''
-      }
     };
   }
 
