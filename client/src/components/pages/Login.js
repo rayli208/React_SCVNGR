@@ -28,7 +28,7 @@ const Login = (props) => {
         </div>
 
         <a href="#section2">
-          <div class="arrow"></div>
+          <div className="arrow"></div>
         </a> 
 
       </div>
