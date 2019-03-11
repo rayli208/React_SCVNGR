@@ -34,11 +34,10 @@ class ModalComp extends Component{
     this.setState({ show: true });
   }
 
-  async handleSaveRequest(event) {
+  handleSaveRequest(event) {
     event.preventDefault();
 
     this.handleClose();
-    console.log('hi');
     jobAPI.createJob(this.state.userInput)
       .then((res) => {
         console.log(res.data);
@@ -89,7 +88,7 @@ class ModalComp extends Component{
                     className="form-control"
                     name="job_title"
                     onChange={this.handleInputChange}
-                    value={this.state.title}
+                    value={this.state.job_title}
                     id="title"
                     placeholder="ex. Production Manager"
                   />
@@ -101,7 +100,7 @@ class ModalComp extends Component{
                     className="form-control"
                     name="phone_number"
                     onChange={this.handleInputChange}
-                    value={this.state.phone}
+                    value={this.state.phone_number}
                     id="phone"
                     placeholder="ex. 123-456-7890"
                   />

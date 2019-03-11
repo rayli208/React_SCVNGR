@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import Navigation from '../Navigation'
 import Axios from 'axios';
 
 class LineChart extends Component {

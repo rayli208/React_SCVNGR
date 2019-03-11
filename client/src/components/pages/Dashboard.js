@@ -3,61 +3,123 @@ import Header from "../Header";
 import Navigation from "../Navigation";
 import Card from "../Card";
 import jobAPI from '../../utils/jobAPI';
-var dragula = require('react-dragula');
-
+import EditModal from '../EditModal';
+import Dragula from 'react-dragula';
+import Moment from "./moment";
 
 
 class Dashboard extends Component {
   state = {
     show: false,
-    jobInfo: []
-  }
+    jobInfo: [],
+    updatedJobInfo: {
+      _id: '',
+      company: '',
+      job_title: '',
+      phone_number: '',
+      email: '',
+      location: '',
+      link: '',
+      salary: '',
+      info: '',
+      positionId: 1
+    }
+  };
+
+  handleClose = () => {
+    this.setState({ show: false });
+  };
+
+  handleShow = (jobId) => {
+    this.setState({ show: true });
+    const newJobInfo = this.state.jobInfo.find(job => job._id === jobId)
+    this.setState({ updatedJobInfo: newJobInfo })
+  };
 
   getJobInfo = () => {
-    console.log(this.state.jobInfo)
     jobAPI.findJobs()
-      .then((res) => {
-        
+      .then((res) => {     
         this.setState(() => ({
           jobInfo: res.data
-        }))
+        }));
         console.log((this.state.jobInfo));
       })
       .catch(err => console.log(err));
-  }
+  };
 
   handleJobDelete = jobId => {
     jobAPI.deleteJob(jobId)
       .then(this.getJobInfo())
       .catch(err => console.log(err));
-  }
+  };
 
-  // handleJobEdit= (jobId) => {
-  // jobAPI.updateJob(jobId)
-  //   .then(this.getJobInfo)
-  //   .catch(err => console.log(err));
-  // }
+  handleUpdateRequest = () => {
+    this.handleClose()
+    jobAPI.updateJob(this.state.updatedJobInfo._id, this.state.updatedJobInfo)
+    .then(this.getJobInfo())
+    .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      updatedJobInfo: {
+            ...this.state.updatedJobInfo,
+            [name]: value
+      }
+    });
+  };
+  
+  handlePositionUpdate = (jobId, position) => {
+    const newJobInfo = this.state.jobInfo.find(job => job._id === jobId)
+    newJobInfo.positionId = position
+    this.setState({ updatedJobInfo: newJobInfo })
+    this.handleUpdateRequest()
+  }
 
   componentDidMount() {
     this.getJobInfo();
-    var drake = dragula([document.querySelector('#applied'), document.querySelector('#heardBack'), document.querySelector('#offer')]);
-    drake.on('drop', function(el, target, source, sibling) {
-      console.log("From " + source.id + " to " + target.id);
-      //console.log(el, " dropped into ", target, " before ", sibling, " came from ", source);
-    });
+  }
+  
+  dragulaDecorator = (componentBackingInstance) => {
+    var me = this;
+    if (componentBackingInstance) {
+      let options = {
+        accepts: function(el, target, source, sibling) {
+          var jobId = el.dataset.id;
+          var from = el.dataset.position;
+          var to = target.dataset.id;
+          if (from !== to) {
+            console.log("Moving ", jobId, " from ", from, " to ", to);
+            me.handlePositionUpdate(jobId, to);
+            el.dataset.position = to;
+          }
+          return false;
+        }
+      };
+      var containers = [].slice.call(componentBackingInstance.children);
+      Dragula(containers, options);
+    }
   }
 
-
-  // componentDidUpdate(prevState) {
-  //   if (prevState.jobInfo.length !== this.state.jobInfo.length) {
-  //     this.getJobInfo()
-  //   }
-  // }
-
   render() {
-    console.log(this.getJobInfo)
+    console.log(this.state.updatedJobInfo)
     return (
       <div>
+        <EditModal 
+          handleClose={() => this.handleClose()}
+          show={this.state.show}
+          handleInputChange={this.handleInputChange}
+          handleUpdateRequest={this.handleUpdateRequest}
+          company={this.state.updatedJobInfo.company ? this.state.updatedJobInfo.company : ''}
+          jobTitle={this.state.updatedJobInfo.job_title ? this.state.updatedJobInfo.job_title : ''}
+          phoneNumber={this.state.updatedJobInfo.phone_number ? this.state.updatedJobInfo.phone_number : ''}
+          email={this.state.updatedJobInfo.email ? this.state.updatedJobInfo.email : ''}
+          location={this.state.updatedJobInfo.location ? this.state.updatedJobInfo.location : ''}
+          salary={this.state.updatedJobInfo.salary ? this.state.updatedJobInfo.salary : ''}
+          link={this.state.updatedJobInfo.link ? this.state.updatedJobInfo.link : ''}
+          info={this.state.updatedJobInfo.info ? this.state.updatedJobInfo.info : ''}
+        />
         <Navigation />
         <Header getJobInfo={this.getJobInfo} />
         <div className="row">
@@ -66,11 +128,13 @@ class Dashboard extends Component {
           <div className="col-4 bg-lpurp white"><h2>Offer</h2></div>
         </div>
 
-        <div className="row">
-          <div id="applied" className="col-4 bg-dpurp jobList">
-          {this.state.jobInfo.map(job => {
+        <div className="row" ref={this.dragulaDecorator}>
+          <div id="applied" className="col-4 bg-dpurp jobList" data-id="1">
+          {this.state.jobInfo.filter(job => (job.positionId === 1)).map(job => {
               return (
                 <Card
+                  id={job._id}
+                  position={job.positionId}
                   key={job._id}
                   company={job.company}
                   jobTitle={job.job_title}
@@ -79,22 +143,68 @@ class Dashboard extends Component {
                   location={job.location}
                   link={job.link}
                   salary={job.salary}
-                  location={job.location}
                   info={job.info}
                   dateCreated={job.date_created}
                   handleJobDelete={() => this.handleJobDelete(job._id)}
-                  // handleJobEdit={() => this.handleJobEdit(job._id)}
+                  handleShow={() => this.handleShow(job._id)}
+                  // positionUpdate={() => this.handlePositionUpdate(job._id, job.positionId)}
                 />
               )
             }
             )}
           </div>
-          <div id="heardBack" className="col-4 bg-purp jobList"></div>
-          <div id="offer" className="col-4 bg-lpurp jobList"></div>
+          <div id="heardBack" className="col-4 bg-purp jobList" data-id="2">
+          {this.state.jobInfo.filter(job => (job.positionId === 2)).map(job => {
+              return (
+                <Card
+                  id={job._id}
+                  position={job.positionId}
+                  key={job._id}
+                  company={job.company}
+                  jobTitle={job.job_title}
+                  phoneNumber={job.phone_number}
+                  email={job.email}
+                  location={job.location}
+                  link={job.link}
+                  salary={job.salary}
+                  info={job.info}
+                  dateCreated={job.date_created}
+                  handleJobDelete={() => this.handleJobDelete(job._id)}
+                  handleShow={() => this.handleShow(job._id)}
+                  // positionUpdate={() => this.handlePositionUpdate(job._id, job.positionId)}
+                />
+              )
+            }
+            )}
+          </div>
+          <div id="offer" className="col-4 bg-lpurp jobList" data-id="3">
+          {this.state.jobInfo.filter(job => (job.positionId === 3)).map(job => {
+              return (
+                <Card
+                  id={job._id}
+                  position={job.positionId}
+                  key={job._id}
+                  company={job.company}
+                  jobTitle={job.job_title}
+                  phoneNumber={job.phone_number}
+                  email={job.email}
+                  location={job.location}
+                  link={job.link}
+                  salary={job.salary}
+                  info={job.info}
+                  dateCreated={job.date_created}
+                  handleJobDelete={() => this.handleJobDelete(job._id)}
+                  handleShow={() => this.handleShow(job._id)}
+                  // positionUpdate={() => this.handlePositionUpdate(job._id, job.positionId)}
+                />
+              )
+            }
+            )}
+          </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 };
 
 export default Dashboard;
