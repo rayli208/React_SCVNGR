@@ -7,8 +7,8 @@ export default {
   findJobs: function() {
     return axios.get('/api/jobinfo/findjobs')
   },
-  updateJob: function(jobId) {
-    return axios.update(`api/jobinfo/${jobId}`)
+  updateJob: function(jobId, updateJobInfo) {
+    return axios.put(`api/jobinfo/${jobId}`, updateJobInfo)
   },
   deleteJob: function(jobId) {
     return axios.delete(`/api/jobinfo/${jobId}`)
