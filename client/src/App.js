@@ -16,7 +16,6 @@ class App extends Component {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/chart" component={Chart} />
             <Route exact path="/" component={Login} />
-            {/* <Route path="/logout" component={Logout} /> */}
           </div>
         </Router>
     );

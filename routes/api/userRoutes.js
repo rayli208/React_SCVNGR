@@ -1,10 +1,16 @@
 const router = require("express").Router();
 const userController = require('../../controllers/userController');
-const passport = require('../../middleware/passport-local')
+const passport = require('passport');
+
 
 router
   .route("/login")
-  .post(passport.authenticate('local'), userController.login);
+    .post(passport.authenticate('local'), userController.login)
+    .get(userController.loginCheck);
+
+router
+  .route("/logout")
+  .get(userController.logout);
 
 router  
   .route("/register")
@@ -15,5 +21,4 @@ router
   .get(userController.findUser)
   .delete(userController.deleteUser);
   
-
   module.exports = router;

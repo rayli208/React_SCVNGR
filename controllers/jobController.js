@@ -3,14 +3,12 @@ const db = require('../models');
 module.exports = {
 
   getAllJobs: function(req, res) {
-    console.log('server hit')
     db.JobInfo.find({})
       .then(jobInfoDB => res.json(jobInfoDB))
       .catch(err => console.log(err));
   },
 
   createJob: function(req, res) {
-    console.log('created job')
     db.JobInfo.create(req.body)
       .then(JobInfoDB => res.json(JobInfoDB))
       .catch(err => console.log(err));
@@ -24,13 +22,6 @@ module.exports = {
 
   updateJob: function(req, res) {
     const updatedJobInfo = {};
-
-    // job_title
-    // phone_number
-    // email
-    // location
-    // salary
-    // link
 
     if(req.body.job_title) {
       updatedJobInfo.job_title = req.body.job_title

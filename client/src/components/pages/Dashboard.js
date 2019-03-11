@@ -3,12 +3,13 @@ import Header from "../Header";
 import Navigation from "../Navigation";
 import Card from "../Card";
 import jobAPI from '../../utils/jobAPI';
+import userAPI from '../../utils/userAPI';
 import EditModal from '../EditModal';
+import { Redirect } from "react-router-dom";
 var dragula = require('react-dragula');
 
-
-
 class Dashboard extends Component {
+  
   state = {
     show: false,
     jobInfo: [],
@@ -23,8 +24,24 @@ class Dashboard extends Component {
       salary: '',
       info: '',
       positionId: 1
-    }
+    },
+    isLoggedIn: true,
+    user: {}
   };
+
+  loginCheck = () => {
+    userAPI.loginCheck()
+      .then(res =>{
+        this.setState({ 
+        isLoggedIn: res.data.isLoggedIn, 
+        user: res.data.userInfo })
+        this.getJobInfo();
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({isLoggedIn: false})
+      })
+  }
 
   handleClose = () => {
     this.setState({ show: false });
@@ -55,6 +72,7 @@ class Dashboard extends Component {
 
   handleUpdateRequest = () => {
     this.handleClose()
+    console.log(this.state.updatedJobInfo)
     jobAPI.updateJob(this.state.updatedJobInfo._id, this.state.updatedJobInfo)
     .then(this.getJobInfo())
     .catch(err => console.log(err));
@@ -70,26 +88,30 @@ class Dashboard extends Component {
     });
   };
   
-  handlePositionUpdate = (jobId, position) => {
-    const newJobInfo = this.state.jobInfo.find(job => job._id === jobId)
-    newJobInfo.positionId = position
-    this.setState({ updatedJobInfo: newJobInfo })
-    this.handleUpdateRequest()
-  }
+  // handlePositionUpdate = (jobId, position) => {
+  //   const newJobInfo = this.state.jobInfo.find(job => job._id === jobId)
+  //   newJobInfo.positionId = position
+  //   this.setState({ updatedJobInfo: newJobInfo })
+  //   this.handleUpdateRequest()
+  // }
 
   componentDidMount() {
-    this.getJobInfo();
+    this.loginCheck();
+    
     var drake = dragula([document.querySelector('#applied'), document.querySelector('#heardBack'), document.querySelector('#offer')]);
     drake.on('drop', function(el, target, source, sibling) {
       console.dir(el.dataset.position)
       console.log(el.dataset.id)
       console.dir(target.dataset.id)
-      // this.handlePositionUpdate(el.dataset.id, target.dataset.id)
     });
   };
 
   render() {
-    console.log(this.state.updatedJobInfo)
+
+    if (!this.state.isLoggedIn) {
+      return <Redirect to="/"/>
+    }
+
     return (
       <div>
         <EditModal 
@@ -113,7 +135,6 @@ class Dashboard extends Component {
           <div className="col-4 bg-purp white"><h2>Heard Back</h2></div>
           <div className="col-4 bg-lpurp white"><h2>Offer</h2></div>
         </div>
-
         <div className="row">
           <div id="applied" className="col-4 bg-dpurp jobList" data-id="1">
           {this.state.jobInfo.filter(job => (job.positionId === 1)).map(job => {
