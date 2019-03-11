@@ -4,9 +4,7 @@ import Navigation from "../Navigation";
 import Card from "../Card";
 import jobAPI from '../../utils/jobAPI';
 import EditModal from '../EditModal';
-var dragula = require('react-dragula');
-
-
+import Dragula from 'react-dragula';
 
 class Dashboard extends Component {
   state = {
@@ -79,14 +77,28 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.getJobInfo();
-    var drake = dragula([document.querySelector('#applied'), document.querySelector('#heardBack'), document.querySelector('#offer')]);
-    drake.on('drop', function(el, target, source, sibling) {
-      console.dir(el.dataset.position)
-      console.log(el.dataset.id)
-      console.dir(target.dataset.id)
-      // this.handlePositionUpdate(el.dataset.id, target.dataset.id)
-    });
-  };
+  }
+  
+  dragulaDecorator = (componentBackingInstance) => {
+    var me = this;
+    if (componentBackingInstance) {
+      let options = {
+        accepts: function(el, target, source, sibling) {
+          var jobId = el.dataset.id;
+          var from = el.dataset.position;
+          var to = target.dataset.id;
+          if (from !== to) {
+            console.log("Moving ", jobId, " from ", from, " to ", to);
+            me.handlePositionUpdate(jobId, to);
+            el.dataset.position = to;
+          }
+          return false;
+        }
+      };
+      var containers = [].slice.call(componentBackingInstance.children);
+      Dragula(containers, options);
+    }
+  }
 
   render() {
     console.log(this.state.updatedJobInfo)
@@ -114,7 +126,7 @@ class Dashboard extends Component {
           <div className="col-4 bg-lpurp white"><h2>Offer</h2></div>
         </div>
 
-        <div className="row">
+        <div className="row" ref={this.dragulaDecorator}>
           <div id="applied" className="col-4 bg-dpurp jobList" data-id="1">
           {this.state.jobInfo.filter(job => (job.positionId === 1)).map(job => {
               return (
