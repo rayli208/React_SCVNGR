@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
-import Line from "./lineChart";
+import { Line } from 'react-chartjs-2';
 import Navigation from '../Navigation'
 import Axios from 'axios';
 
-class BarChart extends Component {
+class LineChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,31 +42,16 @@ class BarChart extends Component {
       })
   }
 
+
   render() {
     return (
       <div>
-        <Navigation />
-        <div className="container">
-        <div className="row">
-        <div className="col">
-        <Line />
-        <div/>
-        <div className="row">
-      <div className="col">
-        <Bar
+        <Line
           data={this.state.Data}
           options={{ maintainAspectRatio: false }} />
-          </div>
-          </div>
-      </div>
-      </div>
-      </div>
       </div>
     )
   }
 }
 
-export default BarChart
-
-
-
+export default LineChart

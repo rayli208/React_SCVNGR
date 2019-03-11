@@ -249,7 +249,6 @@ button h5 {
 
 .row-black{
   background-color: black;
-<<<<<<< HEAD
 }
 
 .noselect {
@@ -284,10 +283,6 @@ transform: rotate(5deg);
   opacity: 0.4;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
-}
-||||||| merged common ancestors
-}
-=======
 }
 
 
@@ -349,4 +344,3 @@ transform: rotate(5deg);
     width: 100%;
     background-color: yellow;
   }
->>>>>>> 893b107aa25cffc8f9db46514c813f8536793dbd
