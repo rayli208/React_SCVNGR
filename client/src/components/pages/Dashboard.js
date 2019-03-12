@@ -134,20 +134,22 @@ class Dashboard extends Component {
     var me = this;
     if (componentBackingInstance) {
       let options = {
-        accepts: function(el, target, source, sibling) {
+      };
+      var containers = [].slice.call(componentBackingInstance.children);
+      var dragula = Dragula(containers, options);
+      dragula.on('drop', function(el, target, source, sibling) {
+          console.log("dropped ", el.dataset.id, " from ", el.dataset.position, " to ", target.dataset.id);
           var jobId = el.dataset.id;
           var from = el.dataset.position;
           var to = target.dataset.id;
+          this.cancel(true);
           if (from !== to) {
-            console.log("Moving ", jobId, " from ", from, " to ", to);
+            console.log("moving ", jobId, " from ", from, " to ", to);
             me.handlePositionUpdate(jobId, to);
             el.dataset.position = to;
           }
-          return false;
         }
-      };
-      var containers = [].slice.call(componentBackingInstance.children);
-      Dragula(containers, options);
+      );
     }
   };
 

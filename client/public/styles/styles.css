@@ -1,5 +1,11 @@
-* {
-  font-family: ‘Raleway’, sans-serif;
+
+p, span, a, h1, h2, h3, h4, h5, h6{
+  font-family: 'Raleway', sans-serif;
+
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .jumbotron {
@@ -16,6 +22,7 @@
 .white-header {
   color: white;
 }
+
 .white-secondary {
   color: white;
 }
@@ -59,13 +66,11 @@
 }
 
 /*ACTION BUTTONS*/
-
 .fa-angle-double-right {
   font-size: 18px;
   padding: 7px 7px;
   color: orange;
   float: right;
-
 }
 
 .fa-angle-double-right:hover {
@@ -80,7 +85,6 @@
   padding: 7px 7px;
   color: green;
   float: right;
-
 }
 
 .fa-edit:hover {
@@ -119,12 +123,12 @@
 
 .background-gradient {
   height: 100vh;
-  background-color: #2e003e; /* For browsers that do not support gradients */
-  background-image: linear-gradient(
-    to bottom right,
+  background-color: #2e003e;
+  /* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom right,
     #2e003e,
-    #c49991
-  ); /* Standard syntax (must be last) */
+    #c49991);
+  /* Standard syntax (must be last) */
   display: flex;
   align-items: center;
 }
@@ -167,7 +171,6 @@ button h5 {
 }
 
 /*BUTTONS*/
-
 .btn-primary {
   color: #2e003e;
   border: #2e003e 1px solid;
@@ -241,59 +244,54 @@ button h5 {
   border-color: #c49991;
 }
 
-.fas{
+.fas {
   color: white;
   font-size: 20px;
   padding: 10px 0;
 }
 
-.row-black{
+.row-black {
   background-color: black;
 }
 
 .noselect {
   -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-
 .gu-mirror {
-  cursor:move; cursor:-webkit-grabbing; cursor:-moz-grabbing; cursor:grabbing;
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
   position: fixed !important;
   margin: 0 !important;
   z-index: 9999 !important;
   opacity: 1;
   -webkit-transform: rotate(5deg);
-transform: rotate(5deg);
+  transform: rotate(5deg);
 }
+
 .gu-hide {
   display: none !important;
 }
+
 .gu-unselectable {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
 }
+
 .gu-transit {
   opacity: 0.4;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
 }
-
-
-
-
-
-
-
-
-
-
 
 /* Arrow styles */
 .arrow,
@@ -313,7 +311,7 @@ transform: rotate(5deg);
   border-right: 2px #c49991 solid;
   border-bottom: 2px #c49991 solid;
 }
-  
+
 .arrow:before {
   content: '';
   width: 20px;
@@ -328,19 +326,18 @@ transform: rotate(5deg);
   animation-iteration-count: infinite;
   animation-name: arrow;
 }
-  
+
 @keyframes arrow {
-  0%
-    {opacity: 1}
-  100%
-    {opacity: 0;
-    transform: translate(-10px, -10px)}
+  0% {
+    opacity: 1
   }
 
-
-
-  #section2 {
-    height: 1350px;
-    width: 100%;
-    background-color: yellow;
+  100% {
+    opacity: 0;
+    transform: translate(-10px, -10px)
   }
+}
+
+.bg-container{
+  background: lightgrey
+}
