@@ -14,8 +14,6 @@ class card extends React.Component {
 
   render() {
     const { open } = this.state;
-    console.log(typeof this.props.handleDrag);
-    console.log(this.props);
     return (
       <React.Fragment>
         <Card
@@ -23,7 +21,7 @@ class card extends React.Component {
           data-id={this.props.id}
           data-position={this.props.position}
           style={{ width: '18rem' }}
-          onChange={this.props.positionUpdate}
+          onMouseUp={this.props.positionUpdate}
         >
         <Button
           onClick={() => this.setState({ open: !open })}

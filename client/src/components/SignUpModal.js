@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import jobAPI from '../utils/jobAPI'
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
@@ -9,42 +8,18 @@ class ModalSignUp extends Component {
 
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.handleSaveRequest = this.handleSaveRequest.bind(this)
 
     this.state = {
       show: false,
     };
-  }
+  };
 
   handleClose() {
     this.setState({ show: false });
-  }
+  };
 
   handleShow() {
     this.setState({ show: true });
-  }
-
-  async handleSaveRequest(event) {
-    event.preventDefault();
-
-    this.handleClose();
-    console.log('hi');
-    jobAPI.createJob(this.state.userInput)
-      .then((res) => {
-        console.log(res.data);
-        return this.props.getJobInfo();
-      })
-      .catch(err => console.log(err));
-  }
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      userInput: {
-        ...this.state.userInput,
-        [name]: value
-      }
-    })
   };
 
   render() {
@@ -58,18 +33,19 @@ class ModalSignUp extends Component {
           <Modal.Header closeButton>
             <Modal.Title>Sign Up</Modal.Title>
           </Modal.Header>
-          <Modal.Body><form>
-            <div className="form-group">
-              <label htmlFor="company">First Name</label>
-              <input
-                type="text"
-                className="form-control"
-                name="first-name"
-                onChange={this.handleInputChange}
-                value={this.state.company}
-                id="first-name"
-                placeholder="First Name"
-              />
+          <Modal.Body>
+            <form>
+              <div className="form-group">
+                <label htmlFor="company">First Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="first_name"
+                  onChange={this.props.handleInputChange}
+                  value={this.props.firstName}
+                  id="first-name"
+                  placeholder="First Name"
+                />
             </div>
             <div className="form-group">
               <label htmlFor="title">Last Name</label>
@@ -77,9 +53,9 @@ class ModalSignUp extends Component {
                 required
                 type="text"
                 className="form-control"
-                name="last-name"
-                onChange={this.handleInputChange}
-                value={this.state.title}
+                name="last_name"
+                onChange={this.props.handleInputChange}
+                value={this.props.lastName}
                 id="last-name"
                 placeholder="Last Name"
               />
@@ -89,9 +65,9 @@ class ModalSignUp extends Component {
               <input
                 type="email"
                 className="form-control"
-                name="email"
-                onChange={this.handleInputChange}
-                value={this.state.email}
+                name="username"
+                onChange={this.props.handleInputChange}
+                value={this.props.username}
                 id="email"
                 placeholder="ex. johnsmith@gmail.com"
               />
@@ -102,8 +78,8 @@ class ModalSignUp extends Component {
                 type="password"
                 className="form-control"
                 name="password"
-                onChange={this.handleInputChange}
-                value={this.state.location}
+                onChange={this.props.handleInputChange}
+                value={this.props.password}
                 id="password"
                 placeholder="Password"
               />
@@ -113,9 +89,9 @@ class ModalSignUp extends Component {
               <input
                 type="password"
                 className="form-control"
-                name="confirm-password"
-                onChange={this.handleInputChange}
-                value={this.state.location}
+                name="password2"
+                onChange={this.props.handleInputChange}
+                value={this.props.password2}
                 id="confirm-password"
                 placeholder="Password"
               />
@@ -126,8 +102,8 @@ class ModalSignUp extends Component {
             <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
-            <Button variant="btn btn-outline-pink" onClick={this.handleSaveRequest}>
-              Save
+            <Button variant="btn btn-outline-pink" onClick={this.props.checkRegistration}>
+              Register
             </Button>
           </Modal.Footer>
         </Modal>

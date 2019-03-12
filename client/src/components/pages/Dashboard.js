@@ -3,12 +3,15 @@ import Header from "../Header";
 import Navigation from "../Navigation";
 import Card from "../Card";
 import jobAPI from "../../utils/jobAPI";
+import userAPI from '../../utils/userAPI'
+import { Redirect } from "react-router-dom";
 import EditModal from "../EditModal";
 import Dragula from "react-dragula";
 import Swal from 'sweetalert2';
 
 
 class Dashboard extends Component {
+  
   state = {
     show: false,
     jobInfo: [],
@@ -23,8 +26,24 @@ class Dashboard extends Component {
       salary: "",
       info: "",
       positionId: 1
-    }
+    },
+    isLoggedIn: true,
+    user: {}
   };
+
+  loginCheck = () => {
+    userAPI.loginCheck()
+      .then(res =>{
+        this.setState({ 
+        isLoggedIn: res.data.isLoggedIn, 
+        user: res.data.userInfo })
+        this.getJobInfo();
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({isLoggedIn: false})
+      })
+  }
 
   handleClose = () => {
     this.setState({ show: false });
@@ -108,7 +127,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    this.getJobInfo();
+    this.loginCheck();
   }
 
   dragulaDecorator = componentBackingInstance => {
@@ -135,7 +154,9 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(this.state.updatedJobInfo);
+    if (!this.state.isLoggedIn) {
+      return <Redirect to='/' />
+    }
     return (
       <div>
         <EditModal
