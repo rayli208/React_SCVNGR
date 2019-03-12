@@ -14,7 +14,7 @@ class BarChart extends Component {
     }
   }
   componentDidMount() {
-    Axios.get('http://localhost:3000/api/jobinfo/findjobs')
+    Axios.get('/api/jobinfo/findjobs')
       .then(res => {
         const jobs = res.data;
       
