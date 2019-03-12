@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import Axios from 'axios';
+var moment = require('moment');
 
 class LineChart extends Component {
   constructor(props) {
@@ -18,15 +19,16 @@ class LineChart extends Component {
         let job = [];
         let date = [];
         jobs.forEach(element => {
+          var stamp = moment(element.date_created).format("MM/DD");
           jobtitle.push(element.company);
           job.push(element.salary);
-          date.push(element.date_created);
+          date.push(stamp);
         });
         this.setState({
           Data: {
             labels: date,
             datasets: [{
-              label: 'idk',
+              label: 'Date Applied vs Job Salary',
               data: job,
               backgroundColor: "rgba(193, 41, 46, 0.75)",
               borderColor: "rgba(59, 89, 152, 1)",

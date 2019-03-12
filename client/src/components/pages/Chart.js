@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
-import Line from "./lineChart";
-import Navigation from '../Navigation'
+import { Line } from 'react-chartjs-2';
 import Axios from 'axios';
+import LineChart from './lineChart';
+import Navigation from '../Navigation';
+var moment = require('moment');
+
 
 class BarChart extends Component {
   constructor(props) {
@@ -15,21 +17,24 @@ class BarChart extends Component {
     Axios.get('http://localhost:3000/api/jobinfo/findjobs')
       .then(res => {
         const jobs = res.data;
-        console.log(jobs);
-        let jobtitle = [];
-        let job = [];
+      
+        let applied = [];
+        let heardBack = [];
+        let offered = [];
         let date = [];
         jobs.forEach(element => {
-          jobtitle.push(element.company);
-          job.push(element.salary);
-          date.push(element.date_created);
+          var stamp = moment(element.date_created).format("MM/DD");
+          applied.push(element.positionId);
+          heardBack.push(element.positionId);
+          offered.push(element.positionId);
+          date.push(stamp);
         });
         this.setState({
           Data: {
             labels: date,
             datasets: [{
-              label: 'idk',
-              data: job,
+              label: 'Date Applied vs Job Salary',
+              data: [applied,heardBack,offered],
               backgroundColor: "rgba(193, 41, 46, 0.75)",
               borderColor: "rgba(59, 89, 152, 1)",
               pointHoverBackgroundColor: "rgba(59, 89, 152, 1)",
@@ -43,31 +48,18 @@ class BarChart extends Component {
       })
   }
 
+
   render() {
     return (
       <div>
         <Navigation />
-        <div className="container">
-        <div className="row">
-        <div className="col">
-        <Line />
-        <div/>
-        <div className="row">
-      <div className="col">
-        <Bar
+        <LineChart />
+        <Line
           data={this.state.Data}
           options={{ maintainAspectRatio: false }} />
-          </div>
-          </div>
-      </div>
-      </div>
-      </div>
       </div>
     )
   }
 }
 
 export default BarChart
-
-
-
