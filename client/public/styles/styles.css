@@ -61,6 +61,10 @@ html {
   min-height: 250px;
 }
 
+.card-title{
+  color: white;
+}
+
 .card-footer {
   background-color: white;
 }
