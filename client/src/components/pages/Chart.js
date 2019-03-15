@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import Axios from 'axios';
 import LineChart from './lineChart';
 import Navigation from '../Navigation';
@@ -31,10 +31,10 @@ class BarChart extends Component {
         });
         this.setState({
           Data: {
-            labels: date,
+            labels: applied,
             datasets: [{
               label: 'Date Applied vs Job Salary',
-              data: [applied,heardBack,offered],
+              data: [1,2,3,4,5,6,7,8,9,10],
               backgroundColor: "rgba(193, 41, 46, 0.75)",
               borderColor: "rgba(59, 89, 152, 1)",
               pointHoverBackgroundColor: "rgba(59, 89, 152, 1)",
@@ -53,10 +53,12 @@ class BarChart extends Component {
     return (
       <div>
         <Navigation />
+        <div className="container">
         <LineChart />
-        <Line
+        <Bar
           data={this.state.Data}
           options={{ maintainAspectRatio: false }} />
+      </div>
       </div>
     )
   }

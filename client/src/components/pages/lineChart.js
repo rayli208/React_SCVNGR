@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import Axios from 'axios';
 var moment = require('moment');
 
@@ -11,22 +11,24 @@ class LineChart extends Component {
     }
   }
   componentDidMount() {
-    Axios.get('http://localhost:3000/api/jobinfo/findjobs')
+    Axios.get('/api/jobinfo/findjobs')
       .then(res => {
         const jobs = res.data;
         console.log(jobs);
         let jobtitle = [];
         let job = [];
         let date = [];
+        let jobcompany =[];
         jobs.forEach(element => {
           var stamp = moment(element.date_created).format("MM/DD");
-          jobtitle.push(element.company);
+          jobtitle.push(element.job_title);
+          jobcompany.push(element.company)
           job.push(element.salary);
           date.push(stamp);
         });
         this.setState({
           Data: {
-            labels: date,
+            labels: [jobcompany,jobtitle],
             datasets: [{
               label: 'Date Applied vs Job Salary',
               data: job,
@@ -47,7 +49,7 @@ class LineChart extends Component {
   render() {
     return (
       <div>
-        <Line
+        <Bar
           data={this.state.Data}
           options={{ maintainAspectRatio: false }} />
       </div>
